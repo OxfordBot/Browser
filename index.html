@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <style>
+            * {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                user-select: none;
+            }
+            body {
+                background: linear-gradient(to right, #FF8B01, #E60001);
+            }
+            .container {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 325px;
+            }
+            .url-bar {
+                border-radius: 10px;
+                font-family: consolas;
+                letter-spacing: -0.5px;
+                background-color: #f1f1f1;
+                padding: 5px;
+                width: 100px;
+                padding-right: 20px;
+                text-align: center;
+            }
+            .safe-points {
+                background-image: linear-gradient(to right, royalblue, rgb(148, 65, 225));
+                border-radius: 50%;
+                font-size: 10px;
+                color: #FFFFFF;
+                text-align: center;
+                padding: 2.5px;
+                padding-left: 5px;
+                padding-right: 5px;
+                margin: 5px;
+            }
+            .content {
+                margin-top: 10px;
+                background-color: #FFFFFF;
+                padding: 7.5px;
+                border-radius: 5px;
+            }
+            .form {
+                margin-top: 6.5px;
+            }
+            .a-btn {
+                color: #000000;
+                text-decoration: none;
+                box-sizing: border-box;
+                background-color: #F1F1F1;
+                border-radius: 10px;
+                padding: 5px;
+                font-size: 14px;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            #close {
+                padding-left: 15px;
+                padding-right: 15px;
+                outline: none;
+                border: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <span class="url-bar">
+                <span class="safe-points"></span>
+                <span id="url"></span>
+            </span>
+            <div class="content">
+                This website currently has a score lower than 50.
+                This means that this website could be malicious and
+                may contain viruses.
+            </div>
+            <div class="form">
+                <a class="a-btn" id="continue" href="">Continue</a>
+                <button class="a-btn" id="close" href="">Close</button>
+            </div>
+        </div>
+    </body>
+    <script>
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+        document.getElementById("url").textContent = getParameterByName("url")
+        document.getElementById("continue").href = getParameterByName("url")
+        document.getElementById("close").onclick = function() {
+            window.history.back()
+        }
+        document.getElementsByClassName("safe-points")[0].innerHTML = getParameterByName("score") + ""
+    </script>
+</html>
